@@ -33,7 +33,7 @@ launchMongoose();
 
 const port = process.env.PORT;
 const server = app.listen(port, () => {
-  console.log(`Server running on PORT:${port}, at HOST: ${host}`);
+  console.log(`Server running on PORT:${port}`);
 });
 
 process.on('unhandledRejection', (err) => {
