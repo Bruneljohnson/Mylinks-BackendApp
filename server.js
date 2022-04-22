@@ -3,10 +3,10 @@ const dotenv = require('dotenv');
 
 dotenv.config({ path: './config.env' });
 
-// process.on('uncaughtException', (err) => {
-//   console.log('UNCAUGHT EXCEPTION');
-//   process.exit(1);
-// });
+process.on('uncaughtException', (err) => {
+  console.log('UNCAUGHT EXCEPTION');
+  process.exit(1);
+});
 
 const app = require('./app');
 
@@ -42,8 +42,8 @@ process.on('unhandledRejection', (err) => {
   server.close(() => process.exit(1));
 });
 
-// FOR HEROKU 24HOUR SHUTDOWN
-// process.on('SIGTERM', () => {
-//   console.log('SIGTERM RECIEVED. Shutting down now.');
-//   server.close(() => console.log('PROCESS TERMINATED!'));
-// });
+FOR HEROKU 24HOUR SHUTDOWN
+process.on('SIGTERM', () => {
+  console.log('SIGTERM RECIEVED. Shutting down now.');
+  server.close(() => console.log('PROCESS TERMINATED!'));
+});
