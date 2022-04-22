@@ -32,8 +32,7 @@ const launchMongoose = async () => {
 launchMongoose();
 
 const port = process.env.PORT;
-const host = '127.0.0.1';
-const server = app.listen(port, host, () => {
+const server = app.listen(port, () => {
   console.log(`Server running on PORT:${port}, at HOST: ${host}`);
 });
 
