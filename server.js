@@ -42,7 +42,7 @@ process.on('unhandledRejection', (err) => {
   server.close(() => process.exit(1));
 });
 
-FOR HEROKU 24HOUR SHUTDOWN
+// FOR HEROKU 24HOUR SHUTDOWN
 process.on('SIGTERM', () => {
   console.log('SIGTERM RECIEVED. Shutting down now.');
   server.close(() => console.log('PROCESS TERMINATED!'));
