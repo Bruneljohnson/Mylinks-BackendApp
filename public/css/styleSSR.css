@@ -508,7 +508,14 @@ li {
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  background: var(--color-navy);
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right bottom,
+    from(#2b5592),
+    to(#64bbe3)
+  );
+  background-image: linear-gradient(to right bottom, #2b5592, #64bbe3);
   padding-top: 0;
 }
 
