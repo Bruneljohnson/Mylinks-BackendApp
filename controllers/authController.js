@@ -17,7 +17,6 @@ const sendToken = (res, user, statusCode) => {
   const token = signToken(user);
 
   user.password = undefined;
-  user.role = undefined;
   user.activeUser = undefined;
   user.__v = undefined;
 
