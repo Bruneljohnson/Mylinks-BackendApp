@@ -28,7 +28,24 @@ app.set('views', path.join(__dirname, 'views'));
 // Serving Static Files
 app.use(express.static(path.join(__dirname, 'public')));
 // Implement CORS and security headers in API Request
-app.options('*', cors());
+const corsOptions = {
+  origin: (origin, callback) => {
+    callback(null, true);
+  },
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: [
+    'Access-Control-Allow-Origin',
+    'Origin',
+    'X-Requested-With',
+    'Content-Type',
+    'Accept',
+    'Authorization',
+  ],
+  credentials: true,
+};
+
+app.options('*', cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(helmet());
 
 //Log requests on development
