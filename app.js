@@ -46,7 +46,11 @@ const corsOptions = {
 
 app.options('*', cors(corsOptions));
 app.use(cors(corsOptions));
-app.use(helmet());
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false,
+  })
+);
 
 //Log requests on development
 process.env.NODE_ENV === 'development' && app.use(morgan('dev'));
