@@ -23,7 +23,7 @@ const sendToken = (res, user, statusCode) => {
   res.status(statusCode).json({
     status: 'success',
     token,
-    data: statusCode === 201 ? user : undefined,
+    data: statusCode === 201 ? user : user.id,
   });
 };
 
