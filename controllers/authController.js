@@ -23,7 +23,7 @@ const sendToken = (res, user, statusCode) => {
   res.status(statusCode).json({
     status: 'success',
     token,
-    data: statusCode === 201 ? user : user.id,
+    data: statusCode === 201 ? user : user._id,
   });
 };
 
@@ -51,7 +51,7 @@ exports.login = async (req, res, next) => {
     if (!email || !password)
       return next(new AppError('Please provide your email and password', 400));
 
-    const existingUser = await User.findOne({ email }).select('+password');
+    const existingUser = await User.findOne({ email }).select('+password +_id');
     if (
       !existingUser ||
       !(await existingUser.comparePassword(password, existingUser.password))
