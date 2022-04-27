@@ -5,6 +5,7 @@ const User = require('./userModel');
 const shortUrlSchema = new mongoose.Schema({
   fullUrl: {
     type: String,
+    lowercase: true,
     required: [true, 'Full Url required to make a Short Url'],
   },
   shortUrl: {
