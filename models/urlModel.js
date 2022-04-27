@@ -13,11 +13,11 @@ const shortUrlSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   lastVisited: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
 
   visits: {
