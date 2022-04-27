@@ -79,7 +79,7 @@ exports.getSingleShortUrl = async (req, res, next) => {
 exports.deleteShortUrl = async (req, res, next) => {
   try {
     const shortenedUrl = await ShortUrl.findOneAndDelete({
-      shortUrl: req.params.shortUrl,
+      shortUrl: req.params.myurl,
     });
     if (!shortenedUrl)
       return next(new AppError(`No url found with that reference.`, 404));
