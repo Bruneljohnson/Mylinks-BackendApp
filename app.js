@@ -27,10 +27,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Serving Static Files
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(
-  '/public/img/users/',
-  express.static(path.join(__dirname, 'public/img/users'))
-);
+app.use('/public', express.static('public'));
 // Implement CORS and security headers in API Request
 const corsOptions = {
   origin: (origin, callback) => {
