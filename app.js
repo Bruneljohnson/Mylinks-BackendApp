@@ -26,6 +26,7 @@ app.set('views', path.join(__dirname, 'views'));
 // GLOBAL MIDDLEWARE
 
 // Serving Static Files
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public', 'img', 'users')));
 
 // Implement CORS and security headers in API Request
