@@ -30,7 +30,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public', 'img', 'users')));
 
 // Implement CORS and security headers in API Request
-const whitelist = ['http://localhost:3000'];
+const whitelist = [
+  'http://localhost:3000',
+  'https://bruneljohnson.github.io/mylinks/',
+];
 
 const corsOptions = {
   origin: (origin, callback) => {
