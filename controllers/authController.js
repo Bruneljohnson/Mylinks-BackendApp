@@ -67,7 +67,7 @@ exports.login = async (req, res, next) => {
 exports.forgotPassword = async (req, res, next) => {
   try {
     const { email } = req.body;
-    const userLookup = await User.findOne({ email }).select('+name');
+    const userLookup = await User.findOne({ email });
     if (!userLookup) return next(new AppError("User doesn't exist.", 404));
 
     const resetToken = userLookup.createResetToken();
