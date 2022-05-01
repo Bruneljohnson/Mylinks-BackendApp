@@ -76,7 +76,6 @@ exports.forgotPassword = async (req, res, next) => {
     const userName = userLookup.name
       .split(' ')[0]
       .replace(userLookup.name[0], userLookup.name[0].toUpperCase());
-    console.log(userName);
 
     try {
       await sendEmail({
