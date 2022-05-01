@@ -10,14 +10,10 @@ const sendEmail = async (options) => {
     if (process.env.NODE_ENV === 'production') {
       mailOptions = {
         from: process.env.SENDER_EMAIL,
-        template: process.env.EMAIL_TEMPLATE_KEY,
+        template_id: process.env.EMAIL_TEMPLATE_KEY,
         personalizations: [
           {
-            to: [
-              {
-                email: options.email,
-              },
-            ],
+            to: { email: options.email },
             dynamic_template_data: {
               subject: 'Here Is Your Password Reset Token. [Valid For 10mins.]',
               preheader: 'Let Us Get You Logged In.',

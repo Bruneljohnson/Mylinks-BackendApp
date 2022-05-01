@@ -73,7 +73,10 @@ exports.forgotPassword = async (req, res, next) => {
     const resetToken = userLookup.createResetToken();
     await userLookup.save({ validateBeforeSave: false });
 
-    const userName = userLookup.name.split(' ')[0];
+    const userName = userLookup.name
+      .split(' ')[0]
+      .replace(userLookup.name[0], userLookup.name[0].toUpperCase());
+    console.log(userName);
 
     try {
       await sendEmail({
