@@ -67,37 +67,19 @@ exports.login = async (req, res, next) => {
 exports.forgotPassword = async (req, res, next) => {
   try {
     const { email } = req.body;
-    const userLookup = await User.findOne({ email });
+    const userLookup = await User.findOne({ email }).select('+name');
     if (!userLookup) return next(new AppError("User doesn't exist.", 404));
 
     const resetToken = userLookup.createResetToken();
     await userLookup.save({ validateBeforeSave: false });
 
-    const message = `
-    We received a request to reset your  password.
-    \n
-    
-    *Protecting your data is important to us.*
-    *Please copy the token below to begin.*
-    \n
-    
-  
-   ${resetToken}
-   
-    \n
-    
-    If you did not request a password change, please contact us
-    IMMEDIATELY so we can keep your account secure.
-    \n
-    
-    Call Us at +33 80345690
-    or Email at security@shortLinks.com`;
+    const userName = userLookup.name.split(' ')[0];
 
     try {
       await sendEmail({
         email,
-        subject: `Your Password Reset Token is Valid for 10mins`,
-        message,
+        name: userName,
+        resetToken: resetToken,
       });
     } catch (err) {
       userLookup.passwordResetToken = undefined;

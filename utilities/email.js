@@ -10,9 +10,22 @@ const sendEmail = async (options) => {
     if (process.env.NODE_ENV === 'production') {
       mailOptions = {
         from: process.env.SENDER_EMAIL,
-        to: options.email,
-        subject: options.subject,
-        text: options.message,
+        template: process.env.EMAIL_TEMPLATE_KEY,
+        personalizations: [
+          {
+            to: [
+              {
+                email: options.email,
+              },
+            ],
+            dynamic_template_data: {
+              subject: 'Here Is Your Password Reset Token. [Valid For 10mins.]',
+              preheader: 'Let Us Get You Logged In.',
+              customer_name: options.name,
+              reset_url: `https://bruneljohnson.github.io/mylinks/resetPassword/${options.resetToken}`,
+            },
+          },
+        ],
         trackingSettings: {
           clickTracking: {
             enable: false,
