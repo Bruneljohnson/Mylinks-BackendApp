@@ -34,7 +34,12 @@ exports.resizeImg = async (req, res, next) => {
     .jpeg({ quality: 75 })
     .toFile(`public/img/users/${req.file.filename}`);
 
-  await uploadFile(req.file, `public/img/users/${req.file.filename}`);
+  const S3File = await uploadFile(
+    req.file,
+    `public/img/users/${req.file.filename}`
+  );
+  req.file.path = S3File.Location;
+
   await unloadFromServer(`public/img/users/${req.file.filename}`);
   next();
 };
@@ -72,7 +77,7 @@ exports.updateMe = async (req, res, next) => {
         )
       );
     const filteredBody = filterObj(req.body, 'name', 'email');
-    if (req.file) filteredBody.photo = req.file.filename;
+    if (req.file) filteredBody.photo = req.file.path;
 
     const currentUser = await User.findByIdAndUpdate(
       req.user.id,
