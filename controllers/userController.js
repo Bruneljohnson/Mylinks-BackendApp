@@ -2,6 +2,11 @@ const User = require('../models/userModel');
 const AppError = require('../utilities/appError');
 const multer = require('multer');
 const sharp = require('sharp');
+const {
+  uploadFile,
+  getFileStream,
+  unloadFromServer,
+} = require('../utilities/s3');
 
 //Image Upload
 const multerStorage = multer.memoryStorage();
@@ -21,7 +26,7 @@ exports.uploadPhoto = upload.single('photo');
 exports.resizeImg = async (req, res, next) => {
   if (!req.file) return next();
 
-  req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
+  req.file.filename = `user-${req.user.id}-${Date.now()}`;
 
   await sharp(req.file.buffer)
     .resize(500, 500)
@@ -29,7 +34,22 @@ exports.resizeImg = async (req, res, next) => {
     .jpeg({ quality: 75 })
     .toFile(`public/img/users/${req.file.filename}`);
 
+  await uploadFile(req.file, `public/img/users/${req.file.filename}`);
+  await unloadFromServer(`public/img/users/${req.file.filename}`);
   next();
+};
+
+//----------GET POST IMAGES FROM S3------------//
+exports.getUserProfilePhoto = async (req, res, next) => {
+  try {
+    const key = req.params.key;
+    console.log(key);
+    const readStream = getFileStream(key);
+
+    readStream.pipe(res);
+  } catch (err) {
+    next(err);
+  }
 };
 
 //Prevent Malicious Attacks
